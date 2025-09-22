@@ -13,9 +13,11 @@ public class TrajectoryPlayer : MonoBehaviour
     [Tooltip("Controla la velocidad de la reproducción. 1 = velocidad normal.")]
     public float playbackSpeed = 1.0f;
 
-    // --- NUEVO: Radio del balón para una rotación realista ---
     [Tooltip("El radio de la esfera en unidades de Unity. Ayuda a calcular la rotación correctamente.")]
     public float ballRadius = 0.5f;
+
+    // --- NUEVO: Variable para el Rigidbody ---
+    private Rigidbody rb;
 
     private class PositionData
     {
@@ -32,14 +34,20 @@ public class TrajectoryPlayer : MonoBehaviour
     private Vector3 initialUnityPosition;
     private Vector3 initialDataPosition;
     private bool isInitialized = false;
-
-    // --- NUEVO: Variable para guardar la posición del fotograma anterior ---
     private Vector3 lastPosition;
 
     void Start()
     {
+        // --- NUEVO: Obtenemos el componente Rigidbody ---
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogError("¡Este objeto necesita un componente Rigidbody para funcionar correctamente!");
+            return;
+        }
+
         LoadAndInitializeTrajectory();
-        // Inicializamos lastPosition con la posición de inicio del objeto.
+
         if (isInitialized)
         {
             lastPosition = transform.position;
@@ -117,26 +125,22 @@ public class TrajectoryPlayer : MonoBehaviour
 
         Vector3 interpolatedDataPosition = GetInterpolatedPositionAtTime(elapsedTime);
         Vector3 displacement = interpolatedDataPosition - initialDataPosition;
-        transform.position = initialUnityPosition + displacement;
 
-        // --- NUEVO: Lógica para calcular y aplicar la rotación ---
-        // 1. Calculamos el vector de movimiento de este fotograma.
+        // --- MODIFICADO: Usamos rb.MovePosition en lugar de transform.position ---
+        // Esto mueve el objeto respetando las colisiones.
+        rb.MovePosition(initialUnityPosition + displacement);
+
+        // La lógica para la rotación puede seguir usando transform.position porque
+        // MovePosition actualizará la posición antes de que este código se ejecute.
         Vector3 frameMovement = transform.position - lastPosition;
 
-        // 2. Si el balón se movió, calculamos la rotación.
         if (frameMovement.magnitude > 0.001f)
         {
-            // 3. El eje de rotación es perpendicular al movimiento y al eje vertical (Vector3.up).
             Vector3 rotationAxis = Vector3.Cross(Vector3.up, frameMovement.normalized);
-
-            // 4. La cantidad de rotación depende de la distancia recorrida y del radio del balón.
             float rotationAngle = (frameMovement.magnitude / (2 * Mathf.PI * ballRadius)) * 360f;
-
-            // 5. Aplicamos la rotación. Usamos Space.World para que gire correctamente sin importar su orientación actual.
             transform.Rotate(rotationAxis, rotationAngle, Space.World);
         }
 
-        // 6. Actualizamos la última posición para el siguiente fotograma.
         lastPosition = transform.position;
     }
 
@@ -170,6 +174,7 @@ public class TrajectoryPlayer : MonoBehaviour
 
     private Vector3 GetPositionFromData(PositionData data)
     {
+        // Se mantiene tu mapeo de coordenadas original
         return new Vector3(-data.z, 0, -data.x);
     }
 }

@@ -789,15 +789,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e2f1c8bba0cc57942bbeafc772342986, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.764
+      value: 35.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e2f1c8bba0cc57942bbeafc772342986, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.053
+      value: 0.068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e2f1c8bba0cc57942bbeafc772342986, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.239
+      value: -0.712
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e2f1c8bba0cc57942bbeafc772342986, type: 3}
       propertyPath: m_LocalRotation.w
@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21039aa3e658f1642852e4d53c1628d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trajectoryFile: {fileID: 4900000, guid: 6abe4944094ce0e4baad52559cae66b8, type: 3}
+  trajectoryFile: {fileID: 4900000, guid: f15abc9654eeacc4aa1b29aed999b2b3, type: 3}
   animationStartTime: 1.5
   playbackSpeed: 1
   ballRadius: 0.5
@@ -2719,7 +2719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &349936086
 BoxCollider:
   m_ObjectHideFlags: 0
