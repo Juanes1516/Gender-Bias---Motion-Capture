@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MoviminetoHombre/BordeInterno/Neutral.unity
+    guid: 6d31a77a49a06464c855f84415947efe
+  - enabled: 1
+    path: Assets/Scenes/MoviminetoHombre/BordeInterno/Masculino.unity
+    guid: bba6f34cad0f6ff49adf326f659e2604
+  - enabled: 1
+    path: Assets/Scenes/MoviminetoHombre/BordeInterno/Femenino.unity
+    guid: e835b5d23e24897468503e5069e941b5
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a0288698f0c905c48a10abad86f1baf8, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 83d5014b617746348b975e8fa9f2e744, type: 2}
